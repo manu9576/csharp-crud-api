@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using csharp_crud_api.Data;
+using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Models;
 
-namespace csharp_crud_api.Controllers
+namespace Controllers
 {
 	[Route("api/[controller]")]
 	public class UsersController : ControllerBase

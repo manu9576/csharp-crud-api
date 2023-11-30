@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -10,12 +6,12 @@ namespace Models
 	public class User
 	{
 		[Column("id")]
-		public int Id { get; set; }
+		public required int Id { get; set; }
 
 		[Column("name")]
-		public string Name { get; set; }
+		public required string Name { get; set; }
 
 		[Column("email")]
-		public string Email { get; set; }
+		public required string Email { get; set; }
 	}
 }

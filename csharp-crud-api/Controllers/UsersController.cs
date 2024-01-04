@@ -24,7 +24,8 @@ namespace Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(int id)
+		public async Task<ActionResult<User>> GetUser(
+			[FromRoute] int id)
 		{
 			User? user = await _context.Users.FindAsync(id);
 
@@ -39,7 +40,7 @@ namespace Controllers
 		// POST: api/users
 		[HttpPost]
 		public async Task<ActionResult<User>> PostUser(
-			[FromBody]User user)
+			[FromBody] User user)
 		{
 			_context.Users.Add(user);
 			await _context.SaveChangesAsync();
@@ -47,15 +48,18 @@ namespace Controllers
 			return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
 		}
 
+		// PUT: api/users/5
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutUser(int id, User user)
+		public async Task<IActionResult> PutUser(
+			[FromRoute] int id,
+			[FromBody] User user)
 		{
 			if (id != user.Id)
 			{
 				return BadRequest("id must be identical");
 			}
 
-			if (!UserExists(id))
+			if (!await UserExists(id))
 			{
 				return NotFound();
 			}
@@ -87,7 +91,7 @@ namespace Controllers
 		public string Test()
 		  => "Hello World!";
 
-		private bool UserExists(int id)
-			=> _context.Users.Any(u => u.Id == id);
+		private Task<bool> UserExists(int id)
+			=> _context.Users.AnyAsync(u => u.Id == id);
 	}
 }
